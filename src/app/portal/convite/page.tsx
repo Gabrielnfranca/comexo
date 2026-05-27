@@ -2,6 +2,8 @@ import { createServiceClient } from '@/lib/supabase/server'
 import ConviteForm from './ConviteForm'
 import Link from 'next/link'
 
+export const dynamic = 'force-dynamic'
+
 export default async function ConvitePage({
   searchParams,
 }: {

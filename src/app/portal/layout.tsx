@@ -2,6 +2,8 @@ import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
 import PortalHeader from './PortalHeader'
 
+export const dynamic = 'force-dynamic'
+
 export default async function PortalLayout({ children }: { children: React.ReactNode }) {
   // Para rotas protegidas, busca dados do usuário para o header
   // O redirecionamento de não-autenticados é feito no middleware
