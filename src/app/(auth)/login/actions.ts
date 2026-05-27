@@ -30,29 +30,36 @@ export async function loginAction(
     return { campos: resultado.error.flatten().fieldErrors }
   }
 
-  const supabase = await createClient()
+  try {
+    const supabase = await createClient()
 
-  const { error } = await supabase.auth.signInWithPassword({
-    email: resultado.data.email,
-    password: resultado.data.senha,
-  })
+    const { error } = await supabase.auth.signInWithPassword({
+      email: resultado.data.email,
+      password: resultado.data.senha,
+    })
 
-  if (error) {
-    // Mensagens amigáveis em português
-    if (error.message.includes('Invalid login credentials')) {
-      return { erro: 'E-mail ou senha incorretos.' }
+    if (error) {
+      // Mensagens amigáveis em português
+      if (error.message.includes('Invalid login credentials')) {
+        return { erro: 'E-mail ou senha incorretos.' }
+      }
+      if (error.message.includes('Email not confirmed')) {
+        return { erro: 'Confirme seu e-mail antes de fazer login.' }
+      }
+      if (error.message.includes('Too many requests')) {
+        return { erro: 'Muitas tentativas. Aguarde alguns minutos.' }
+      }
+      return { erro: 'Erro ao fazer login. Tente novamente.' }
     }
-    if (error.message.includes('Email not confirmed')) {
-      return { erro: 'Confirme seu e-mail antes de fazer login.' }
+
+    revalidatePath('/', 'layout')
+    redirect('/dashboard')
+  } catch (err: any) {
+    if (err?.message === 'SUPABASE_SERVER_ENV_MISSING') {
+      return { erro: 'Ambiente de autenticação não configurado. Verifique as variáveis do Supabase na Vercel.' }
     }
-    if (error.message.includes('Too many requests')) {
-      return { erro: 'Muitas tentativas. Aguarde alguns minutos.' }
-    }
-    return { erro: 'Erro ao fazer login. Tente novamente.' }
+    return { erro: 'Falha de conexão com autenticação. Tente novamente em instantes.' }
   }
-
-  revalidatePath('/', 'layout')
-  redirect('/dashboard')
 }
 
 export async function logoutAction() {
