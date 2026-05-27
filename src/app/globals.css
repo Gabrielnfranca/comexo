@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* Tailwind v4: dark mode via classe .dark no <html> */
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -12,15 +15,98 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* dark mode ativado pela classe .dark (next-themes) */
+.dark {
+  --background: #0a0a0a;
+  --foreground: #ededed;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Transição suave ao trocar tema */
+*, *::before, *::after {
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.1s ease;
+}
+
+/* ── Print styles ─────────────────────────────────────────── */
+@media print {
+  /* Oculta navegação e controles */
+  aside,
+  nav,
+  .print\:hidden { display: none !important; }
+
+  /* Fundo branco, texto escuro */
+  body, html {
+    background: #fff !important;
+    color: #111 !important;
+  }
+
+  /* Remove sombras e borders coloridas */
+  * {
+    background-color: transparent !important;
+    border-color: #e5e7eb !important;
+    color: #111 !important;
+    box-shadow: none !important;
+  }
+
+  /* Tabelas quebram entre páginas de forma limpa */
+  table { page-break-inside: auto; }
+  tr    { page-break-inside: avoid; }
+  thead { display: table-header-group; }
+
+  /* Força o conteúdo principal a ocupar tudo */
+  main { width: 100% !important; padding: 1rem !important; }
+
+  a[href]::after { content: none !important; }
+}
+
+/* Custom Scrollbar — global (conteúdo principal) */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.15);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(148, 163, 184, 0.3);
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(148, 163, 184, 0.15) transparent;
+}
+
+/* Scrollbar do sidebar — combina com bg #0F2643 */
+.sidebar-scroll::-webkit-scrollbar {
+  width: 4px;
+}
+
+.sidebar-scroll::-webkit-scrollbar-track {
+  background: #0F2643;
+}
+
+.sidebar-scroll::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.07);
+  border-radius: 10px;
+}
+
+.sidebar-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(245, 158, 11, 0.35);
+}
+
+.sidebar-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.07) #0F2643;
 }
