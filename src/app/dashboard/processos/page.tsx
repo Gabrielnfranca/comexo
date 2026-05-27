@@ -21,6 +21,7 @@ export default async function ProcessosPage({
   const modalValido = (modal === 'maritimo' || modal === 'aereo' || modal === 'rodoviario' || modal === 'ferroviario') ? modal as ProcessoModal : undefined
 
   const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
 
   let query = supabase
     .from('processos')
@@ -31,7 +32,9 @@ export default async function ProcessosPage({
   if (modalValido) query = query.eq('modal', modalValido)
   if (status) query = query.eq('status', status)
 
-  const { data } = await query
+  const { data, error } = await query
+  if (error) console.error('[processos] query error:', error.message, error.code, error.hint)
+  console.log('[processos] user id:', user?.id, '| rows returned:', data?.length ?? 0)
   const processos: Processo[] = data ?? []
 
   const ativos = processos.filter(p => !['liberado', 'entregue', 'averbado', 'cancelado'].includes(p.status)).length

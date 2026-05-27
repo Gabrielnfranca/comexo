@@ -1,0 +1,295 @@
+﻿Ôû▓ Next.js 16.2.6 (Turbopack)
+- Environments: .env.local
+
+  Creating an optimized production build ...
+node.exe : 
+No linha:1 caractere:1
++ & "C:\Program Files\nodejs/node.exe" "C:\Program Files\nodejs/node_mo ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+> Build error occurred
+Error: Turbopack build failed with 13 errors:
+./src/app/dashboard/ficta/[id]/FictaDetail.tsx:1:1
+The "use client" directive must be placed before other expressions. Move it to 
+the top of the file to resolve this issue.
+[31m[1m>[0m [90m1 |[0m [32m'use client'[0m
+  [90m  |[0m [31m[1m^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mimport[0m { useActionState, useState } [36mfrom[0m 
+[32m'react'[0m
+  [90m4 |[0m [36mimport[0m {
+
+Ecmascript file had an error
+
+Import trace:
+  Server Component:
+    ./src/app/dashboard/ficta/[id]/FictaDetail.tsx
+    ./src/app/dashboard/ficta/[id]/page.tsx
+
+
+./src/app/dashboard/ficta/[id]/FictaDetail.tsx:3:10
+You're importing a module that depends on `useActionState` into a React Server 
+Component module. This API is only available in Client Components. To fix, 
+mark the file (or its parent) with the `"use client"` directive.
+    Learn more: https://nextjs.org/docs/app/api-reference/directives/use-client
+  [90m1 |[0m [32m'use client'[0m
+  [90m2 |[0m
+[31m[1m>[0m [90m3 |[0m [36mimport[0m { useActionState, useState } 
+[36mfrom[0m [32m'react'[0m
+  [90m  |[0m          [31m[1m^^^^^^^^^^^^^^[0m
+  [90m4 |[0m [36mimport[0m {
+  [90m5 |[0m   editarFictaAction,
+  [90m6 |[0m   atualizarStatusFictaAction,
+
+Ecmascript file had an error
+
+Import trace:
+  Server Component:
+    ./src/app/dashboard/ficta/[id]/FictaDetail.tsx
+    ./src/app/dashboard/ficta/[id]/page.tsx
+
+
+./src/app/dashboard/ficta/[id]/FictaDetail.tsx:3:26
+You're importing a module that depends on `useState` into a React Server 
+Component module. This API is only available in Client Components. To fix, 
+mark the file (or its parent) with the `"use client"` directive.
+    Learn more: https://nextjs.org/docs/app/api-reference/directives/use-client
+  [90m1 |[0m [32m'use client'[0m
+  [90m2 |[0m
+[31m[1m>[0m [90m3 |[0m [36mimport[0m { useActionState, useState } 
+[36mfrom[0m [32m'react'[0m
+  [90m  |[0m                          [31m[1m^^^^^^^^[0m
+  [90m4 |[0m [36mimport[0m {
+  [90m5 |[0m   editarFictaAction,
+  [90m6 |[0m   atualizarStatusFictaAction,
+
+Ecmascript file had an error
+
+Import trace:
+  Server Component:
+    ./src/app/dashboard/ficta/[id]/FictaDetail.tsx
+    ./src/app/dashboard/ficta/[id]/page.tsx
+
+
+./src/app/dashboard/cct/[id]/page.tsx:1:1
+Module not found: Can't resolve './NovaCCTForm'
+[31m[1m>[0m [90m1 |[0m ´╗┐[36mimport[0m [33mNovaCCTForm[0m 
+[36mfrom[0m [32m'./NovaCCTForm'[0m
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m [36mimport[0m [33mLink[0m [36mfrom[0m [32m'next/link'[0m
+  [90m3 |[0m [36mimport[0m { [33mArrowLeft[0m } [36mfrom[0m 
+[32m'lucide-react'[0m
+  [90m4 |[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/dashboard/cadastros/armadores/[id]/page.tsx:2:40
+Module not found: Can't resolve './NovoArmadorForm'
+  [90m1 |[0m ´╗┐[36mimport[0m [33mLink[0m [36mfrom[0m 
+[32m'next/link'[0m
+[31m[1m>[0m [90m2 |[0m [36mimport[0m { [33mArrowLeft[0m } 
+[36mfrom[0m [32m'lucide-react'[0m
+  [90m  |[0m                                        [31m[1m^[0m
+[31m[1m>[0m [90m3 |[0m [36mimport[0m [33mNovoArmadorForm[0m 
+[36mfrom[0m [32m'./NovoArmadorForm'[0m
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m4 |[0m
+  [90m5 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m 
+[33mNovoArmadorPage[0m() {
+  [90m6 |[0m   [36mreturn[0m (
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/dashboard/drawback/[id]/page.tsx:4:52
+Module not found: Can't resolve './NovoDrawbackForm'
+  [90m2 |[0m [36mimport[0m [33mLink[0m [36mfrom[0m [32m'next/link'[0m
+  [90m3 |[0m [36mimport[0m { [33mArrowLeft[0m } [36mfrom[0m 
+[32m'lucide-react'[0m
+[31m[1m>[0m [90m4 |[0m [36mimport[0m { createClient } [36mfrom[0m 
+[32m'@/lib/supabase/server'[0m
+  [90m  |[0m                                                    
+[31m[1m^[0m
+[31m[1m>[0m [90m5 |[0m [36mimport[0m [33mNovoDrawbackForm[0m 
+[36mfrom[0m [32m'./NovoDrawbackForm'[0m
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m6 |[0m
+  [90m7 |[0m [36mexport[0m [36mdefault[0m [36masync[0m 
+[36mfunction[0m [33mNovoDrawbackPage[0m() {
+  [90m8 |[0m   [36mconst[0m supabase = [36mawait[0m createClient()
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/dashboard/entreposto/[id]/page.tsx:4:52
+Module not found: Can't resolve './NovoEntrepostoForm'
+  [90m2 |[0m [36mimport[0m [33mLink[0m [36mfrom[0m [32m'next/link'[0m
+  [90m3 |[0m [36mimport[0m { [33mArrowLeft[0m } [36mfrom[0m 
+[32m'lucide-react'[0m
+[31m[1m>[0m [90m4 |[0m [36mimport[0m { createClient } [36mfrom[0m 
+[32m'@/lib/supabase/server'[0m
+  [90m  |[0m                                                    
+[31m[1m^[0m
+[31m[1m>[0m [90m5 |[0m [36mimport[0m [33mNovoEntrepostoForm[0m 
+[36mfrom[0m [32m'./NovoEntrepostoForm'[0m
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m6 |[0m
+  [90m7 |[0m [36mexport[0m [36mdefault[0m [36masync[0m 
+[36mfunction[0m [33mNovoEntrepostoPage[0m() {
+  [90m8 |[0m   [36mconst[0m supabase = [36mawait[0m createClient()
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/dashboard/cadastros/fornecedores/[id]/page.tsx:2:40
+Module not found: Can't resolve './NovoFornecedorForm'
+  [90m1 |[0m ´╗┐[36mimport[0m [33mLink[0m [36mfrom[0m 
+[32m'next/link'[0m
+[31m[1m>[0m [90m2 |[0m [36mimport[0m { [33mArrowLeft[0m } 
+[36mfrom[0m [32m'lucide-react'[0m
+  [90m  |[0m                                        [31m[1m^[0m
+[31m[1m>[0m [90m3 |[0m [36mimport[0m [33mNovoFornecedorForm[0m 
+[36mfrom[0m [32m'./NovoFornecedorForm'[0m
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m4 |[0m
+  [90m5 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m 
+[33mNovoFornecedorPage[0m() {
+  [90m6 |[0m   [36mreturn[0m (
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/dashboard/cadastros/intervenientes/[id]/page.tsx:2:40
+Module not found: Can't resolve './NovoIntervenienteForm'
+  [90m1 |[0m ´╗┐[36mimport[0m [33mLink[0m [36mfrom[0m 
+[32m'next/link'[0m
+[31m[1m>[0m [90m2 |[0m [36mimport[0m { [33mArrowLeft[0m } 
+[36mfrom[0m [32m'lucide-react'[0m
+  [90m  |[0m                                        [31m[1m^[0m
+[31m[1m>[0m [90m3 |[0m [36mimport[0m [33mNovoIntervenienteForm[0m 
+[36mfrom[0m [32m'./NovoIntervenienteForm'[0m
+  [90m  |[0m 
+[31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m4 |[0m
+  [90m5 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m 
+[33mNovoIntervenientePage[0m() {
+  [90m6 |[0m   [36mreturn[0m (
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/dashboard/lpco/[id]/page.tsx:2:40
+Module not found: Can't resolve './NovoLpcoForm'
+  [90m1 |[0m ´╗┐[36mimport[0m [33mLink[0m [36mfrom[0m 
+[32m'next/link'[0m
+[31m[1m>[0m [90m2 |[0m [36mimport[0m { [33mArrowLeft[0m } 
+[36mfrom[0m [32m'lucide-react'[0m
+  [90m  |[0m                                        [31m[1m^[0m
+[31m[1m>[0m [90m3 |[0m [36mimport[0m [33mNovoLpcoForm[0m 
+[36mfrom[0m [32m'./NovoLpcoForm'[0m
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m4 |[0m
+  [90m5 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m 
+[33mNovoLpcoPage[0m() {
+  [90m6 |[0m   [36mreturn[0m (
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/dashboard/mercante/[id]/page.tsx:1:1
+Module not found: Can't resolve './NovoMercanteForm'
+[31m[1m>[0m [90m1 |[0m ´╗┐[36mimport[0m [33mNovoMercanteForm[0m 
+[36mfrom[0m [32m'./NovoMercanteForm'[0m
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m [36mimport[0m [33mLink[0m [36mfrom[0m [32m'next/link'[0m
+  [90m3 |[0m [36mimport[0m { [33mArrowLeft[0m } [36mfrom[0m 
+[32m'lucide-react'[0m
+  [90m4 |[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/dashboard/cadastros/ncm/[id]/page.tsx:2:40
+Module not found: Can't resolve './NovoNcmForm'
+  [90m1 |[0m ´╗┐[36mimport[0m [33mLink[0m [36mfrom[0m 
+[32m'next/link'[0m
+[31m[1m>[0m [90m2 |[0m [36mimport[0m { [33mArrowLeft[0m } 
+[36mfrom[0m [32m'lucide-react'[0m
+  [90m  |[0m                                        [31m[1m^[0m
+[31m[1m>[0m [90m3 |[0m [36mimport[0m [33mNovoNcmForm[0m [36mfrom[0m 
+[32m'./NovoNcmForm'[0m
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m4 |[0m
+  [90m5 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m 
+[33mNovoNcmPage[0m() {
+  [90m6 |[0m   [36mreturn[0m (
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/dashboard/cadastros/produtos/[id]/page.tsx:2:40
+Module not found: Can't resolve './NovoProdutoForm'
+  [90m1 |[0m ´╗┐[36mimport[0m [33mLink[0m [36mfrom[0m 
+[32m'next/link'[0m
+[31m[1m>[0m [90m2 |[0m [36mimport[0m { [33mArrowLeft[0m } 
+[36mfrom[0m [32m'lucide-react'[0m
+  [90m  |[0m                                        [31m[1m^[0m
+[31m[1m>[0m [90m3 |[0m [36mimport[0m [33mNovoProdutoForm[0m 
+[36mfrom[0m [32m'./NovoProdutoForm'[0m
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m4 |[0m
+  [90m5 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m 
+[33mNovoProdutoPage[0m() {
+  [90m6 |[0m   [36mreturn[0m (
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+    at <unknown> (./src/app/dashboard/ficta/[id]/FictaDetail.tsx:1:1)
+    at <unknown> (./src/app/dashboard/ficta/[id]/FictaDetail.tsx:3:10)
+    at <unknown> (./src/app/dashboard/ficta/[id]/FictaDetail.tsx:3:26)
+    at <unknown> (./src/app/dashboard/cct/[id]/page.tsx:1:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./src/app/dashboard/cadastros/armadores/[id]/page.tsx:2:40)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./src/app/dashboard/drawback/[id]/page.tsx:4:52)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./src/app/dashboard/entreposto/[id]/page.tsx:4:52)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> 
+(./src/app/dashboard/cadastros/fornecedores/[id]/page.tsx:2:40)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> 
+(./src/app/dashboard/cadastros/intervenientes/[id]/page.tsx:2:40)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./src/app/dashboard/lpco/[id]/page.tsx:2:40)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./src/app/dashboard/mercante/[id]/page.tsx:1:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./src/app/dashboard/cadastros/ncm/[id]/page.tsx:2:40)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./src/app/dashboard/cadastros/produtos/[id]/page.tsx:2:40)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
