@@ -51,15 +51,15 @@ export async function loginAction(
       }
       return { erro: 'Erro ao fazer login. Tente novamente.' }
     }
-
-    revalidatePath('/', 'layout')
-    redirect('/dashboard')
   } catch (err: any) {
     if (err?.message === 'SUPABASE_SERVER_ENV_MISSING') {
       return { erro: 'Ambiente de autenticação não configurado. Verifique as variáveis do Supabase na Vercel.' }
     }
     return { erro: 'Falha de conexão com autenticação. Tente novamente em instantes.' }
   }
+
+  revalidatePath('/', 'layout')
+  redirect('/dashboard')
 }
 
 export async function logoutAction() {
