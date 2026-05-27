@@ -27,7 +27,7 @@ export default async function ProcessosPage({
   let query = serviceSupabase
     .from('processos')
     .select('*')
-    .order('created_at', { ascending: false })
+    .order('criado_em', { ascending: false })
 
   if (tipoValido) query = query.eq('tipo', tipoValido)
   if (modalValido) query = query.eq('modal', modalValido)
