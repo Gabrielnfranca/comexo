@@ -1,5 +1,7 @@
 ﻿import { createClient } from '@/lib/supabase/server'
 import Link from 'next/link'
+
+export const dynamic = 'force-dynamic'
 import { Plus, Package, Ship, Plane } from 'lucide-react'
 import {
   STATUS_COLORS, STATUS_LABELS,
