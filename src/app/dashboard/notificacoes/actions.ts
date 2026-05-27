@@ -4,8 +4,13 @@ import { createClient } from '@/lib/supabase/server'
 import { Resend } from 'resend'
 import { templateAlertaDrawback, templateAlertaEntreposto } from '@/lib/email/templates'
 
-const resend = new Resend(process.env.RESEND_API_KEY)
 const APP_URL = process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000'
+
+function getResendClient(): Resend | null {
+  const apiKey = process.env.RESEND_API_KEY
+  if (!apiKey) return null
+  return new Resend(apiKey)
+}
 
 function diffDias(dataStr: string): number {
   const hoje = new Date()
@@ -132,6 +137,11 @@ export async function enviarAlertasAction(_prev: unknown, formData: FormData): P
 
   const idsDrawback = formData.getAll('drawback_ids') as string[]
   const idsEntreposto = formData.getAll('entreposto_ids') as string[]
+
+  const resend = getResendClient()
+  if (!resend) {
+    return { error: 'RESEND_API_KEY não configurada no ambiente' }
+  }
 
   if (idsDrawback.length === 0 && idsEntreposto.length === 0) {
     return { error: 'Selecione ao menos um alerta para enviar' }
