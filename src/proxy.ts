@@ -11,28 +11,35 @@ export async function proxy(request: NextRequest) {
   }
 
   let supabaseResponse = NextResponse.next({ request })
+  let user: any = null
 
-  const supabase = createServerClient(
-    supabaseUrl,
-    supabaseAnonKey,
-    {
-      cookies: {
-        getAll() {
-          return request.cookies.getAll()
+  try {
+    const supabase = createServerClient(
+      supabaseUrl,
+      supabaseAnonKey,
+      {
+        cookies: {
+          getAll() {
+            return request.cookies.getAll()
+          },
+          setAll(cookiesToSet) {
+            cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value))
+            supabaseResponse = NextResponse.next({ request })
+            cookiesToSet.forEach(({ name, value, options }) =>
+              supabaseResponse.cookies.set(name, value, options)
+            )
+          },
         },
-        setAll(cookiesToSet) {
-          cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value))
-          supabaseResponse = NextResponse.next({ request })
-          cookiesToSet.forEach(({ name, value, options }) =>
-            supabaseResponse.cookies.set(name, value, options)
-          )
-        },
-      },
-    }
-  )
+      }
+    )
 
-  // Renova a sessão se expirada
-  const { data: { user } } = await supabase.auth.getUser()
+    // Renova a sessão se expirada
+    const { data } = await supabase.auth.getUser()
+    user = data.user
+  } catch {
+    // Se o Supabase estiver mal configurado no ambiente, evita 500 e segue sem sessão.
+    return NextResponse.next({ request })
+  }
 
   const pathname = request.nextUrl.pathname
 
