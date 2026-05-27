@@ -1,4 +1,4 @@
-﻿import { createClient } from '@/lib/supabase/server'
+﻿import { createClient, createServiceClient } from '@/lib/supabase/server'
 import Link from 'next/link'
 
 export const dynamic = 'force-dynamic'
@@ -23,7 +23,8 @@ export default async function ProcessosPage({
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
 
-  let query = supabase
+  const serviceSupabase = createServiceClient()
+  let query = serviceSupabase
     .from('processos')
     .select('*')
     .order('created_at', { ascending: false })
