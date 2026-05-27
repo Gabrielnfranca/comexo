@@ -6,7 +6,7 @@ import Link from 'next/link'
 import { ArrowLeft, Building2, User, MapPin, FileText, ShieldCheck, Search, Loader2 } from 'lucide-react'
 import { TIPO_CLIENTE_LIST, TIPO_CLIENTE_LABELS, ESTADOS_BR } from '@/lib/types/cliente'
 
-const ESTADO_INICIAL = {}
+const ESTADO_INICIAL: any = {}
 
 const inputCls = 'w-full bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-white/10 rounded-xl px-4 py-2.5 text-slate-900 dark:text-white text-sm placeholder-slate-400 dark:placeholder-slate-600 focus:outline-none focus:border-amber-500/50 focus:ring-1 focus:ring-amber-500/20 transition'
 

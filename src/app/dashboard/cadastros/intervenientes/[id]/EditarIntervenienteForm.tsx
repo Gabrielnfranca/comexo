@@ -1,6 +1,6 @@
-﻿import Link from 'next/link'
+import Link from 'next/link'
 import { ArrowLeft } from 'lucide-react'
-import NovoIntervenienteForm from './NovoIntervenienteForm'
+import NovoIntervenienteForm from '../novo/NovoIntervenienteForm'
 
 export default function NovoIntervenientePage() {
   return (

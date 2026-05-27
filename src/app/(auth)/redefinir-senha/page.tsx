@@ -2,9 +2,10 @@
 
 import { useActionState, useState } from 'react'
 import { redefinirSenhaAction } from './actions'
+import type { RedefinirSenhaState } from './actions'
 import { Loader2, Globe, Eye, EyeOff, ShieldCheck } from 'lucide-react'
 
-const estadoInicial = {}
+const estadoInicial: RedefinirSenhaState = {}
 
 export default function RedefinirSenhaPage() {
   const [state, formAction, isPending] = useActionState(redefinirSenhaAction, estadoInicial)

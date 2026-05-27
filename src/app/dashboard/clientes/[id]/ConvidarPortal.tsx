@@ -6,7 +6,7 @@ import Link from 'next/link'
 import { ArrowLeft, Building2, User, MapPin, FileText, ShieldCheck } from 'lucide-react'
 import { TIPO_CLIENTE_LIST, TIPO_CLIENTE_LABELS, ESTADOS_BR } from '@/lib/types/cliente'
 
-const ESTADO_INICIAL = {}
+const ESTADO_INICIAL: any = {}
 
 export default function NovoClientePage() {
   const [estado, action, pending] = useActionState(criarClienteAction, ESTADO_INICIAL)

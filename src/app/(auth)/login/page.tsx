@@ -2,9 +2,10 @@
 
 import { useActionState, useState } from 'react'
 import { loginAction } from './actions'
+import type { LoginState } from './actions'
 import { Eye, EyeOff, Loader2, Globe, Shield } from 'lucide-react'
 
-const estadoInicial = {}
+const estadoInicial: LoginState = {}
 
 export default function LoginPage() {
   const [state, formAction, isPending] = useActionState(loginAction, estadoInicial)

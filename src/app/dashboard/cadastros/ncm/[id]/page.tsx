@@ -1,6 +1,6 @@
-﻿import Link from 'next/link'
+import Link from 'next/link'
 import { ArrowLeft } from 'lucide-react'
-import NovoNcmForm from './NovoNcmForm'
+import NovoNcmForm from '../novo/NovoNcmForm'
 
 export default function NovoNcmPage() {
   return (

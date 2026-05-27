@@ -2,9 +2,10 @@
 
 import { useActionState, useRef } from 'react'
 import { verificarMFAAction } from './actions'
+import type { MFAState } from './actions'
 import { Loader2, KeyRound } from 'lucide-react'
 
-const estadoInicial = {}
+const estadoInicial: MFAState = {}
 
 export default function Verificar2FAPage() {
   const [state, formAction, isPending] = useActionState(verificarMFAAction, estadoInicial)

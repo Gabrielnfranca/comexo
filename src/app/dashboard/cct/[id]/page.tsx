@@ -1,4 +1,4 @@
-﻿import NovaCCTForm from './NovaCCTForm'
+import NovaCCTForm from '../novo/NovaCCTForm'
 import Link from 'next/link'
 import { ArrowLeft } from 'lucide-react'
 

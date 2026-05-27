@@ -33,7 +33,7 @@ export async function criarEntrepostoAction(_prev: unknown, formData: FormData) 
 
   const raw = Object.fromEntries(formData)
   const parsed = LoteSchema.safeParse(raw)
-  if (!parsed.success) return { error: parsed.error.errors[0].message }
+  if (!parsed.success) return { error: parsed.error.issues[0]?.message ?? 'Dados inválidos' }
 
   const d = parsed.data
   const data_limite = calcularDataLimite(d.data_entrada, d.prazo_meses)
@@ -77,7 +77,7 @@ export async function editarEntrepostoAction(_prev: unknown, formData: FormData)
 
   const raw = Object.fromEntries(formData)
   const parsed = EditLoteSchema.safeParse(raw)
-  if (!parsed.success) return { error: parsed.error.errors[0].message }
+  if (!parsed.success) return { error: parsed.error.issues[0]?.message ?? 'Dados inválidos' }
 
   const d = parsed.data
   const data_limite = calcularDataLimite(d.data_entrada, d.prazo_meses)
@@ -132,7 +132,7 @@ export async function registrarSaidaAction(_prev: unknown, formData: FormData) {
 
   const raw = Object.fromEntries(formData)
   const parsed = SaidaSchema.safeParse(raw)
-  if (!parsed.success) return { error: parsed.error.errors[0].message }
+  if (!parsed.success) return { error: parsed.error.issues[0]?.message ?? 'Dados inválidos' }
 
   const d = parsed.data
   const { error } = await supabase.from('entreposto_lotes').update({

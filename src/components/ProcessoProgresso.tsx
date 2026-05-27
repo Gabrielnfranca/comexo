@@ -13,7 +13,7 @@ export default function ProcessoProgresso({
 }) {
   const flow = getStatusFlow(tipo, modal).filter(s => s !== 'cancelado')
   const cancelado = status === 'cancelado'
-  const idxAtual = flow.indexOf(status)
+  const idxAtual = cancelado ? -1 : flow.indexOf(status as (typeof flow)[number])
 
   return (
     <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/5 rounded-2xl p-5">

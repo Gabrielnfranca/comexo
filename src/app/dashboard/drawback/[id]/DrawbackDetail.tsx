@@ -1,8 +1,8 @@
-﻿import { redirect } from 'next/navigation'
+import { redirect } from 'next/navigation'
 import Link from 'next/link'
 import { ArrowLeft } from 'lucide-react'
 import { createClient } from '@/lib/supabase/server'
-import NovoDrawbackForm from './NovoDrawbackForm'
+import NovoDrawbackForm from '../novo/NovoDrawbackForm'
 
 export default async function NovoDrawbackPage() {
   const supabase = await createClient()

@@ -1,4 +1,4 @@
-﻿import NovoMercanteForm from './NovoMercanteForm'
+import NovoMercanteForm from '../novo/NovoMercanteForm'
 import Link from 'next/link'
 import { ArrowLeft } from 'lucide-react'
 

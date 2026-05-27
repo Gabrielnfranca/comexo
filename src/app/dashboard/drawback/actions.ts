@@ -27,7 +27,7 @@ export async function criarDrawbackAction(_prev: unknown, formData: FormData) {
   const raw = Object.fromEntries(formData)
   const parsed = AtoSchema.safeParse(raw)
   if (!parsed.success) {
-    return { error: parsed.error.errors[0].message }
+    return { error: parsed.error.issues[0]?.message ?? 'Dados inválidos' }
   }
 
   const d = parsed.data
@@ -66,7 +66,7 @@ export async function editarDrawbackAction(_prev: unknown, formData: FormData) {
 
   const raw = Object.fromEntries(formData)
   const parsed = EditAtoSchema.safeParse(raw)
-  if (!parsed.success) return { error: parsed.error.errors[0].message }
+  if (!parsed.success) return { error: parsed.error.issues[0]?.message ?? 'Dados inválidos' }
 
   const d = parsed.data
   const { error } = await supabase
@@ -126,7 +126,7 @@ export async function adicionarInsumoAction(_prev: unknown, formData: FormData) 
 
   const raw = Object.fromEntries(formData)
   const parsed = InsumoSchema.safeParse(raw)
-  if (!parsed.success) return { error: parsed.error.errors[0].message }
+  if (!parsed.success) return { error: parsed.error.issues[0]?.message ?? 'Dados inválidos' }
 
   const d = parsed.data
   const { error } = await supabase.from('drawback_insumos').insert({
@@ -208,7 +208,7 @@ export async function adicionarExportacaoAction(_prev: unknown, formData: FormDa
 
   const raw = Object.fromEntries(formData)
   const parsed = ExportacaoSchema.safeParse(raw)
-  if (!parsed.success) return { error: parsed.error.errors[0].message }
+  if (!parsed.success) return { error: parsed.error.issues[0]?.message ?? 'Dados inválidos' }
 
   const d = parsed.data
   const valor = d.valor_fob_exportado ? parseFloat(d.valor_fob_exportado) : null

@@ -37,7 +37,7 @@ export async function criarFictaAction(_prev: unknown, formData: FormData) {
 
   const raw = Object.fromEntries(formData)
   const parsed = FictaSchema.safeParse(raw)
-  if (!parsed.success) return { error: parsed.error.errors[0].message }
+  if (!parsed.success) return { error: parsed.error.issues[0]?.message ?? 'Dados inválidos' }
 
   const d = parsed.data
 
@@ -82,7 +82,7 @@ export async function editarFictaAction(_prev: unknown, formData: FormData) {
   const id = formData.get('id') as string
   const raw = Object.fromEntries(formData)
   const parsed = FictaSchema.safeParse(raw)
-  if (!parsed.success) return { error: parsed.error.errors[0].message }
+  if (!parsed.success) return { error: parsed.error.issues[0]?.message ?? 'Dados inválidos' }
 
   const d = parsed.data
 

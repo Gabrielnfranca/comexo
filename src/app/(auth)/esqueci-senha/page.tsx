@@ -2,9 +2,10 @@
 
 import { useActionState } from 'react'
 import { esqueciSenhaAction } from './actions'
+import type { EsqueciSenhaState } from './actions'
 import { Loader2, Globe, Mail, ArrowLeft, CheckCircle2 } from 'lucide-react'
 
-const estadoInicial = {}
+const estadoInicial: EsqueciSenhaState = {}
 
 export default function EsqueciSenhaPage() {
   const [state, formAction, isPending] = useActionState(esqueciSenhaAction, estadoInicial)
