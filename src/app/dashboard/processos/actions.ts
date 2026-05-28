@@ -13,6 +13,8 @@ const ProcessoSchema = z.object({
   cliente: z.string().min(2, 'Nome do cliente é obrigatório'),
   cnpj_importador: z.string().optional(),
   fornecedor: z.string().optional(),
+  fabricante: z.string().optional(),
+  pais_fabricante: z.string().optional(),
   // mercadoria
   mercadoria: z.string().optional(),
   ncm: z.string().optional(),
@@ -111,6 +113,8 @@ export async function criarProcessoAction(prevState: FormState, formData: FormDa
       cliente: d.cliente,
       cnpj_importador: d.cnpj_importador || null,
       fornecedor: d.fornecedor || null,
+      fabricante: d.fabricante || null,
+      pais_fabricante: d.pais_fabricante || null,
       // mercadoria
       mercadoria: d.mercadoria || null,
       ncm: d.ncm?.replace(/\D/g, '') || null,

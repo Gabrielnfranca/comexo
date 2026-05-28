@@ -207,24 +207,45 @@ export default function NovoProcessoForm({ clientes, fornecedores, armadores, nc
           </div>
 
           {isImportacao && (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label className={labelClass}>Fornecedor / Exportador (exterior)</label>
+                {fornecedores.length > 0 ? (
+                  <>
+                    <input name="fornecedor" list="fornecedores-sugestoes" placeholder="Nome do fornecedor no exterior..." className={inputClass} autoComplete="off" />
+                    <datalist id="fornecedores-sugestoes">
+                      {fornecedores.map(f => <option key={f.id} value={f.razao_social} />)}
+                    </datalist>
+                  </>
+                ) : (
+                  <input name="fornecedor" placeholder="Nome do fornecedor no exterior" className={inputClass} />
+                )}
+                <p className="text-slate-500 text-xs mt-1">Quem vende / emite a invoice</p>
+              </div>
+              <div>
+                <label className={labelClass}>Fabricante (se diferente do fornecedor)</label>
+                <input name="fabricante" placeholder="Nome do fabricante / produtor..." className={inputClass} />
+                <p className="text-slate-500 text-xs mt-1">Quem produz a mercadoria (sem CNPJ)</p>
+              </div>
+            </div>
+          )}
+          {isImportacao && (
             <div>
-              <label className={labelClass}>Fornecedor / Exportador (exterior)</label>
-              {fornecedores.length > 0 ? (
-                <>
-                  <input name="fornecedor" list="fornecedores-sugestoes" placeholder="Nome do fornecedor no exterior..." className={inputClass} autoComplete="off" />
-                  <datalist id="fornecedores-sugestoes">
-                    {fornecedores.map(f => <option key={f.id} value={f.razao_social} />)}
-                  </datalist>
-                </>
-              ) : (
-                <input name="fornecedor" placeholder="Nome do fornecedor no exterior" className={inputClass} />
-              )}
+              <label className={labelClass}>País de Fabricação / Origem da Mercadoria</label>
+              <input name="pais_fabricante" placeholder="Ex: China, México, Índia, Alemanha..." className={inputClass} />
+              <p className="text-slate-500 text-xs mt-1">Usado na Regra de Origem e Certificado de Origem</p>
             </div>
           )}
           {isExportacao && (
-            <div>
-              <label className={labelClass}>Comprador / Importador (exterior)</label>
-              <input name="fornecedor" placeholder="Nome do comprador no exterior" className={inputClass} />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label className={labelClass}>Comprador / Importador (exterior)</label>
+                <input name="fornecedor" placeholder="Nome do comprador no exterior" className={inputClass} />
+              </div>
+              <div>
+                <label className={labelClass}>Destinatário Final (se diferente do comprador)</label>
+                <input name="fabricante" placeholder="Nome do destinatário final..." className={inputClass} />
+              </div>
             </div>
           )}
         </div>
