@@ -37,6 +37,8 @@ export async function criarClienteAction(
     radar_ativo:            formData.get('radar_ativo') !== 'false',
     inscricao_estadual:     formData.get('inscricao_estadual')?.toString().trim() || null,
     regime_tributario:      formData.get('regime_tributario')?.toString() || null,
+    pais:                   formData.get('pais')?.toString().trim() || null,
+    id_fiscal_exterior:     formData.get('id_fiscal_exterior')?.toString().trim() || null,
     observacoes:  formData.get('observacoes')?.toString().trim() || null,
   }
 
@@ -78,6 +80,8 @@ export async function atualizarClienteAction(
     radar_ativo:            formData.get('radar_ativo') !== 'false',
     inscricao_estadual:     formData.get('inscricao_estadual')?.toString().trim() || null,
     regime_tributario:      formData.get('regime_tributario')?.toString() || null,
+    pais:                   formData.get('pais')?.toString().trim() || null,
+    id_fiscal_exterior:     formData.get('id_fiscal_exterior')?.toString().trim() || null,
     observacoes:  formData.get('observacoes')?.toString().trim() || null,
     updated_at:   new Date().toISOString(),
   }

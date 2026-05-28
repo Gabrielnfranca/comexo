@@ -3,7 +3,7 @@
 import { useActionState, useState } from 'react'
 import { criarClienteAction } from '../actions'
 import Link from 'next/link'
-import { ArrowLeft, Building2, User, MapPin, FileText, ShieldCheck, Search, Loader2 } from 'lucide-react'
+import { ArrowLeft, Building2, User, MapPin, FileText, ShieldCheck, Search, Loader2, Globe } from 'lucide-react'
 import { TIPO_CLIENTE_LIST, TIPO_CLIENTE_LABELS, ESTADOS_BR } from '@/lib/types/cliente'
 
 const ESTADO_INICIAL: any = {}
@@ -26,6 +26,8 @@ export default function NovoClientePage() {
 
   const [buscandoCnpj,  setBuscandoCnpj]  = useState(false)
   const [cnpjMsg,       setCnpjMsg]       = useState<{ tipo: 'ok' | 'erro'; texto: string } | null>(null)
+  const [tipoSelecionado, setTipoSelecionado] = useState('importador')
+  const isExterior = tipoSelecionado === 'fabricante_exterior'
 
   async function consultarCnpj() {
     const limpo = cnpj.replace(/\D/g, '')
@@ -82,24 +84,36 @@ export default function NovoClientePage() {
             <Building2 size={16} className="text-amber-400" />
             <h2 className="text-white font-semibold text-sm">Tipo de Cliente</h2>
           </div>
-          <div className="grid grid-cols-3 gap-3">
+          <div className="grid grid-cols-2 gap-3">
             {TIPO_CLIENTE_LIST.map((t) => (
               <label key={t} className="cursor-pointer">
                 <input
                   type="radio"
                   name="tipo"
                   value={t}
-                  defaultChecked={t === 'importador'}
+                  checked={tipoSelecionado === t}
+                  onChange={() => setTipoSelecionado(t)}
                   className="sr-only peer"
                 />
                 <div className="peer-checked:bg-amber-500/15 peer-checked:border-amber-500/40 peer-checked:text-amber-400
                                border border-slate-200 dark:border-white/10 rounded-xl px-4 py-3 text-sm text-slate-500 dark:text-slate-400
                                text-center font-medium transition hover:border-white/20">
-                  {TIPO_CLIENTE_LABELS[t]}
+                  {t === 'fabricante_exterior' ? (
+                    <span className="flex flex-col items-center gap-0.5">
+                      <span>Fabricante</span>
+                      <span className="text-xs font-normal opacity-70">no Exterior</span>
+                    </span>
+                  ) : TIPO_CLIENTE_LABELS[t]}
                 </div>
               </label>
             ))}
           </div>
+          {isExterior && (
+            <p className="mt-3 text-xs text-orange-400/80 flex items-center gap-1.5">
+              <Globe size={12} />
+              Empresa estrangeira — sem CNPJ, sem RADAR. Use identificação fiscal do país de origem (VAT, EIN, etc.)
+            </p>
+          )}
         </div>
 
         {/* Dados Fiscais */}
@@ -111,51 +125,76 @@ export default function NovoClientePage() {
             </div>
           </div>
           <div className="grid grid-cols-1 gap-4">
-            {/* CNPJ com botão de consulta */}
-            <div>
-              <label className="block text-slate-500 dark:text-slate-400 text-xs mb-1.5">CNPJ</label>
-              <div className="flex gap-2">
-                <input
-                  name="cnpj"
-                  value={cnpj}
-                  onChange={e => { setCnpj(e.target.value); setCnpjMsg(null) }}
-                  onKeyDown={e => e.key === 'Enter' && (e.preventDefault(), consultarCnpj())}
-                  placeholder="00.000.000/0000-00"
-                  className={inputCls + ' font-mono'}
-                />
-                <button
-                  type="button"
-                  onClick={consultarCnpj}
-                  disabled={buscandoCnpj}
-                  title="Consultar dados na Receita Federal"
-                  className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-amber-500/15 border border-amber-500/30 text-amber-400 hover:bg-amber-500/25 transition text-xs font-medium whitespace-nowrap disabled:opacity-60"
-                >
-                  {buscandoCnpj ? <Loader2 size={13} className="animate-spin" /> : <Search size={13} />}
-                  Consultar
-                </button>
+
+            {isExterior ? (
+              /* ── Exterior: Identificação Fiscal + País ──────────── */
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-slate-500 dark:text-slate-400 text-xs mb-1.5">
+                    Identificação Fiscal <span className="opacity-60">(VAT / EIN / NIF...)</span>
+                  </label>
+                  <input
+                    name="id_fiscal_exterior"
+                    placeholder="Ex: US-123456789, EU987654321"
+                    className={inputCls + ' font-mono'}
+                  />
+                </div>
+                <div>
+                  <label className="block text-slate-500 dark:text-slate-400 text-xs mb-1.5">País de Origem</label>
+                  <input
+                    name="pais"
+                    placeholder="Ex: China, EUA, Alemanha..."
+                    className={inputCls}
+                  />
+                </div>
               </div>
-              {cnpjMsg && (
-                <p className={`text-xs mt-1 ${cnpjMsg.tipo === 'ok' ? 'text-emerald-400' : 'text-red-400'}`}>
-                  {cnpjMsg.texto}
-                </p>
-              )}
-            </div>
+            ) : (
+              /* ── Nacional: CNPJ com consulta ────────────────────── */
+              <div>
+                <label className="block text-slate-500 dark:text-slate-400 text-xs mb-1.5">CNPJ</label>
+                <div className="flex gap-2">
+                  <input
+                    name="cnpj"
+                    value={cnpj}
+                    onChange={e => { setCnpj(e.target.value); setCnpjMsg(null) }}
+                    onKeyDown={e => e.key === 'Enter' && (e.preventDefault(), consultarCnpj())}
+                    placeholder="00.000.000/0000-00"
+                    className={inputCls + ' font-mono'}
+                  />
+                  <button
+                    type="button"
+                    onClick={consultarCnpj}
+                    disabled={buscandoCnpj}
+                    title="Consultar dados na Receita Federal"
+                    className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-amber-500/15 border border-amber-500/30 text-amber-400 hover:bg-amber-500/25 transition text-xs font-medium whitespace-nowrap disabled:opacity-60"
+                  >
+                    {buscandoCnpj ? <Loader2 size={13} className="animate-spin" /> : <Search size={13} />}
+                    Consultar
+                  </button>
+                </div>
+                {cnpjMsg && (
+                  <p className={`text-xs mt-1 ${cnpjMsg.tipo === 'ok' ? 'text-emerald-400' : 'text-red-400'}`}>
+                    {cnpjMsg.texto}
+                  </p>
+                )}
+              </div>
+            )}
 
             <div>
               <label className="block text-slate-500 dark:text-slate-400 text-xs mb-1.5">
-                Razão Social <span className="text-red-400">*</span>
+                {isExterior ? 'Nome da Empresa' : 'Razão Social'} <span className="text-red-400">*</span>
               </label>
               <input
                 name="razao_social"
                 required
                 value={razaoSocial}
                 onChange={e => setRazaoSocial(e.target.value)}
-                placeholder="Ex: Comércio Internacional Ltda."
+                placeholder={isExterior ? 'Ex: Shenzhen Electronics Co., Ltd.' : 'Ex: Comércio Internacional Ltda.'}
                 className={inputCls}
               />
             </div>
             <div>
-              <label className="block text-slate-500 dark:text-slate-400 text-xs mb-1.5">Nome Fantasia</label>
+              <label className="block text-slate-500 dark:text-slate-400 text-xs mb-1.5">Nome Fantasia / Marca</label>
               <input
                 name="nome_fantasia"
                 value={nomeFantasia}
@@ -221,47 +260,61 @@ export default function NovoClientePage() {
                 name="endereco"
                 value={endereco}
                 onChange={e => setEndereco(e.target.value)}
-                placeholder="Rua, número, bairro"
+                placeholder={isExterior ? 'Rua / Distrito / Bairro' : 'Rua, número, bairro'}
                 className={inputCls}
               />
             </div>
-            <div className="grid grid-cols-3 gap-4">
-              <div className="col-span-1">
-                <label className="block text-slate-500 dark:text-slate-400 text-xs mb-1.5">Cidade</label>
+            {isExterior ? (
+              <div>
+                <label className="block text-slate-500 dark:text-slate-400 text-xs mb-1.5">Cidade / Estado / Província</label>
                 <input
                   name="cidade"
                   value={cidade}
                   onChange={e => setCidade(e.target.value)}
-                  placeholder="São Paulo"
+                  placeholder="Ex: Shenzhen, Guangdong"
                   className={inputCls}
                 />
               </div>
-              <div>
-                <label className="block text-slate-500 dark:text-slate-400 text-xs mb-1.5">UF</label>
-                <select
-                  name="estado"
-                  value={estadoUF}
-                  onChange={e => setEstadoUF(e.target.value)}
-                  className={inputCls}
-                >
-                  <option value="">—</option>
-                  {ESTADOS_BR.map(uf => <option key={uf} value={uf}>{uf}</option>)}
-                </select>
+            ) : (
+              <div className="grid grid-cols-3 gap-4">
+                <div className="col-span-1">
+                  <label className="block text-slate-500 dark:text-slate-400 text-xs mb-1.5">Cidade</label>
+                  <input
+                    name="cidade"
+                    value={cidade}
+                    onChange={e => setCidade(e.target.value)}
+                    placeholder="São Paulo"
+                    className={inputCls}
+                  />
+                </div>
+                <div>
+                  <label className="block text-slate-500 dark:text-slate-400 text-xs mb-1.5">UF</label>
+                  <select
+                    name="estado"
+                    value={estadoUF}
+                    onChange={e => setEstadoUF(e.target.value)}
+                    className={inputCls}
+                  >
+                    <option value="">—</option>
+                    {ESTADOS_BR.map(uf => <option key={uf} value={uf}>{uf}</option>)}
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-slate-500 dark:text-slate-400 text-xs mb-1.5">CEP</label>
+                  <input
+                    name="cep"
+                    value={cep}
+                    onChange={e => setCep(e.target.value)}
+                    placeholder="00000-000"
+                    className={inputCls + ' font-mono'}
+                  />
+                </div>
               </div>
-              <div>
-                <label className="block text-slate-500 dark:text-slate-400 text-xs mb-1.5">CEP</label>
-                <input
-                  name="cep"
-                  value={cep}
-                  onChange={e => setCep(e.target.value)}
-                  placeholder="00000-000"
-                  className={inputCls + ' font-mono'}
-                />
-              </div>
-            </div>
+            )}
           </div>
         </div>
-        {/* RADAR */}
+        {/* RADAR — só para nacionais */}
+        {!isExterior && (
         <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/5 rounded-2xl p-5">
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-2">
@@ -331,6 +384,7 @@ export default function NovoClientePage() {
             </div>
           </div>
         </div>
+        )} {/* fim !isExterior RADAR */}
 
         {/* Observações */}
         <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/5 rounded-2xl p-5">
