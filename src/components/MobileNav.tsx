@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Menu, X, LogOut } from 'lucide-react'
+import { Menu, X, LogOut, Globe } from 'lucide-react'
 import { Suspense } from 'react'
 import SidebarNav from '@/components/SidebarNav'
 import { logoutAction } from '@/app/(auth)/login/actions'
@@ -40,12 +40,12 @@ export default function MobileNav({ userEmail }: Props) {
             {/* Logo + fechar */}
             <div className="px-6 py-5 border-b border-white/5 flex items-center justify-between shrink-0">
               <div className="flex items-center gap-3">
-                <div className="w-9 h-9 rounded-xl bg-amber-500 flex items-center justify-center shadow-lg shadow-amber-500/20">
-                  <span className="text-white font-bold text-sm">CX</span>
+                <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-amber-600 to-amber-400 flex items-center justify-center shadow-lg shadow-amber-500/20 border border-amber-300/20 shrink-0">
+                  <Globe className="w-5 h-5 text-white" />
                 </div>
                 <div>
-                  <p className="text-white font-bold text-base leading-none">COMEXO</p>
-                  <p className="text-slate-500 text-xs mt-0.5">Comércio Exterior</p>
+                  <p className="text-white font-bold text-base leading-none tracking-tight">COMEXO</p>
+                  <p className="text-slate-500 text-xs mt-0.5">Simplificando o Comex</p>
                 </div>
               </div>
               <button
@@ -58,10 +58,12 @@ export default function MobileNav({ userEmail }: Props) {
               </button>
             </div>
 
-            {/* Navegação — fechar ao clicar em um link */}
+            {/* Navegação — fechar somente ao clicar em links (não em botões de acordeon) */}
             <div
               className="flex-1 overflow-y-auto"
-              onClick={() => setOpen(false)}
+              onClick={(e) => {
+                if ((e.target as HTMLElement).closest('a')) setOpen(false)
+              }}
             >
               <Suspense fallback={<div className="flex-1" />}>
                 <SidebarNav />
